@@ -23,12 +23,7 @@ namespace CommunityBot.Helpers
 
         private static Message? GetMessage(this Update update)
         {
-            if (update == null)
-            {
-                return null;
-            }
-
-            return update.Type switch
+            return update?.Type switch
             {
                 UpdateType.Message => update.Message,
                 UpdateType.EditedMessage => update.EditedMessage,
