@@ -7,6 +7,11 @@ namespace CommunityBot.Helpers
     {
         public static string ToLog(this Update update)
         {
+            if (update is null)
+            {
+                return "[ Update is null ]";
+            }
+
             var message = update.GetMessage();
 
             var additionalInfo = message != null
