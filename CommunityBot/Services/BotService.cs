@@ -67,17 +67,17 @@ namespace CommunityBot.Services
 
         public Task SetWebhook()
         {
-            return _botClient.SetWebhookAsync(_options.WebhookUrl);
+            return _botClient.SetWebhook(_options.WebhookUrl);
         }
 
         public Task DeleteWebhook()
         {
-            return _botClient.DeleteWebhookAsync();
+            return _botClient.DeleteWebhook();
         }
 
         public Task<WebhookInfo> GetWebhookInfo()
         {
-            return _botClient.GetWebhookInfoAsync();
+            return _botClient.GetWebhookInfo();
         }
 
         public async Task HandleUpdate(Update update)
@@ -106,28 +106,50 @@ namespace CommunityBot.Services
             switch (result)
             {
                 case TextUpdateHandlerResult textResult:
-                    await _botClient.SendTextMessageAsync(textResult.ChatId, textResult.MessageText, 
-                        textResult.ParseMode, textResult.DisableWebPagePreview, replyToMessageId: textResult.ReplyToMessageId, replyMarkup: textResult.ReplyMarkup);
+                    await _botClient.SendMessage(
+                        textResult.ChatId,
+                        textResult.MessageText, 
+                        textResult.ParseMode,
+                        new ReplyParameters() { MessageId = textResult.ReplyToMessageId },
+                        textResult.ReplyMarkup,
+                        textResult.DisableWebPagePreview);
                     break;
                 
                 case PhotoUpdateHandlerResult photoResult:
-                    await _botClient.SendPhotoAsync(photoResult.ChatId, photoResult.FileId, photoResult.Caption,
-                        photoResult.ParseMode, replyToMessageId: photoResult.ReplyToMessageId, replyMarkup: photoResult.ReplyMarkup);
+                    await _botClient.SendPhoto(
+                        photoResult.ChatId,
+                        photoResult.FileId,
+                        photoResult.Caption,
+                        photoResult.ParseMode,
+                        new ReplyParameters() { MessageId = photoResult.ReplyToMessageId },
+                        photoResult.ReplyMarkup);
                     break;
                 
                 case VideoUpdateHandlerResult videoResult:
-                    await _botClient.SendVideoAsync(videoResult.ChatId, videoResult.FileId, caption: videoResult.Caption,
-                        parseMode: videoResult.ParseMode, replyToMessageId: videoResult.ReplyToMessageId, replyMarkup: videoResult.ReplyMarkup);
+                    await _botClient.SendVideo(
+                        videoResult.ChatId,
+                        videoResult.FileId, 
+                        videoResult.Caption,
+                        videoResult.ParseMode,
+                        new ReplyParameters() { MessageId = videoResult.ReplyToMessageId },
+                        videoResult.ReplyMarkup);
                     break;
                 
                 case MediaGroupUpdateHandlerResult mediaGroupResult:
-                    await _botClient.SendMediaGroupAsync(mediaGroupResult.MediaList, mediaGroupResult.ChatId, 
-                        replyToMessageId: mediaGroupResult.ReplyToMessageId);
+                    await _botClient.SendMediaGroup(
+                        mediaGroupResult.ChatId, 
+                        mediaGroupResult.MediaList,
+                        new ReplyParameters() { MessageId = mediaGroupResult.ReplyToMessageId });
                     break;
                 
                 case DocumentUpdateHandlerResult documentResult:
-                    await _botClient.SendDocumentAsync(documentResult.ChatId, documentResult.File, documentResult.Caption, 
-                        documentResult.ParseMode, replyToMessageId: documentResult.ReplyToMessageId, replyMarkup: documentResult.ReplyMarkup);
+                    await _botClient.SendDocument(
+                        documentResult.ChatId,
+                        documentResult.File, 
+                        caption: documentResult.Caption, 
+                        parseMode: documentResult.ParseMode,
+                        replyParameters: new ReplyParameters() { MessageId = documentResult.ReplyToMessageId },
+                        replyMarkup: documentResult.ReplyMarkup);
                     documentResult.Dispose();
                     break;
                 

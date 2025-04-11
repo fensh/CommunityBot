@@ -1,4 +1,4 @@
-﻿using Telegram.Bot.Types;
+using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 
@@ -6,7 +6,7 @@ namespace CommunityBot.Handlers.Results
 {
     public abstract class UpdateHandlerResultBase : IUpdateHandlerResult
     {
-        protected UpdateHandlerResultBase(long chatId, string text, ParseMode parseMode, int replyToMessageId, IReplyMarkup? replyMarkup)
+        protected UpdateHandlerResultBase(long chatId, string text, ParseMode parseMode, int replyToMessageId, ReplyMarkup? replyMarkup)
         {
             ChatId = new ChatId(chatId);
             Text = text;
@@ -23,6 +23,6 @@ namespace CommunityBot.Handlers.Results
 
         public int ReplyToMessageId { get; }
         
-        public IReplyMarkup? ReplyMarkup { get; }
+        public ReplyMarkup? ReplyMarkup { get; }
     }
 }

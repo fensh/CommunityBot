@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using Telegram.Bot;
@@ -10,7 +10,7 @@ namespace CommunityBot.Helpers
         public static async Task<string> DownloadStringFile(this ITelegramBotClient botClient, string fileId)
         {
             await using var stream = new MemoryStream();
-            await botClient.GetInfoAndDownloadFileAsync(fileId, stream);
+            await botClient.DownloadFile(fileId, stream);
 
             if (stream.Position != 0) 
             {

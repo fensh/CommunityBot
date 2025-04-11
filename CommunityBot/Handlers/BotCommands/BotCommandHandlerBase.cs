@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using CommunityBot.Contracts;
 using CommunityBot.Handlers.Results;
 using CommunityBot.Helpers;
@@ -25,7 +25,7 @@ namespace CommunityBot.Handlers.BotCommands
         
         protected override bool CanHandle(Update update)
         {
-            return update.Message.ContainCommand(Config.BotCommand);
+            return update.Message?.ContainCommand(Config.BotCommand) == true;
         }
 
         protected override async Task<IUpdateHandlerResult> HandleUpdateInternal(Update update)

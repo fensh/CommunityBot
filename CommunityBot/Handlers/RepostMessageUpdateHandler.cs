@@ -3,7 +3,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
-using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
@@ -126,13 +125,22 @@ namespace CommunityBot.Handlers
                 return Result.Nothing();
             }
 
-            foreach (var inputMedia in media.Where(m => m.Caption != null).OfType<InputMediaBase>())
+            foreach (var inputMedia in media.OfType<IAlbumInputMedia>().Where(m => m is InputMediaPhoto or InputMediaVideo))
             {
-                message.Caption = inputMedia.Caption;
-                inputMedia.Caption = await PreparePost(message);
-                inputMedia.ParseMode = ParseMode.Html;
+                if (inputMedia is InputMediaPhoto photoMedia && photoMedia.Caption != null)
+                {
+                    message.Caption = photoMedia.Caption;
+                    photoMedia.Caption = await PreparePost(message);
+                    photoMedia.ParseMode = ParseMode.Html;
+                }
+                else if (inputMedia is InputMediaVideo videoMedia && videoMedia.Caption != null)
+                {
+                    message.Caption = videoMedia.Caption;
+                    videoMedia.Caption = await PreparePost(message);
+                    videoMedia.ParseMode = ParseMode.Html;
+                }
             }
-            
+
             return Result.MediaGroup(Options.MainChannelId, media);
         }
 

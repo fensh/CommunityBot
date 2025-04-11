@@ -1,11 +1,11 @@
-﻿using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace CommunityBot.Handlers.Results
 {
     public class TextUpdateHandlerResult : UpdateHandlerResultBase
     {
-        public TextUpdateHandlerResult(long chatId, string text, int replyToMessageId, ParseMode parseMode = ParseMode.Default, bool disableWebPagePreview = false, IReplyMarkup? replyMarkup = null)
+        public TextUpdateHandlerResult(long chatId, string text, int replyToMessageId, ParseMode parseMode = ParseMode.None, bool disableWebPagePreview = false, ReplyMarkup? replyMarkup = null)
             : base(chatId, text, parseMode, replyToMessageId, replyMarkup)
         {
             DisableWebPagePreview = disableWebPagePreview;

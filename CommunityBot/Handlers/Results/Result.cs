@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,19 +10,19 @@ namespace CommunityBot.Handlers.Results
 {
     public static class Result
     {
-        public static TextUpdateHandlerResult Text(long chatId, string text, ParseMode parseMode, bool disableWebPagePreview, IReplyMarkup? replyMarkup = null)
+        public static TextUpdateHandlerResult Text(long chatId, string text, ParseMode parseMode, bool disableWebPagePreview, ReplyMarkup? replyMarkup = null)
         {
             return new (chatId, text, 0, parseMode, disableWebPagePreview, replyMarkup);
         }
         
-        public static TextUpdateHandlerResult Text(long chatId, string text, int replyToMessageId, ParseMode parseMode = ParseMode.Default, bool disableWebPagePreview = false, IReplyMarkup? replyMarkup = null)
+        public static TextUpdateHandlerResult Text(long chatId, string text, int replyToMessageId, ParseMode parseMode = ParseMode.None, bool disableWebPagePreview = false, ReplyMarkup? replyMarkup = null)
         {
             return new (chatId, text, replyToMessageId, parseMode, disableWebPagePreview, replyMarkup);
         }
         
         public static TextUpdateHandlerResult Error(long chatId, string handlerName, Exception exception)
         {
-            return new (chatId, $"Exception was thrown in handler '{handlerName}':\n\n{exception.Message}\n\n{exception.StackTrace}", 0, ParseMode.Default, true);
+            return new (chatId, $"Exception was thrown in handler '{handlerName}':\n\n{exception.Message}\n\n{exception.StackTrace}", 0, ParseMode.None, true);
         }
         
         public static AggregateUpdateHandlerResult Error(IEnumerable<long> chatIds, string handlerName, Exception exception)
@@ -35,12 +35,12 @@ namespace CommunityBot.Handlers.Results
             );
         }
 
-        public static PhotoUpdateHandlerResult Photo(long chatId, string fileId, string caption, ParseMode parseMode = ParseMode.Default, int replyToMessageId = 0)
+        public static PhotoUpdateHandlerResult Photo(long chatId, string fileId, string caption, ParseMode parseMode = ParseMode.None, int replyToMessageId = 0)
         {
             return new (chatId, fileId, caption, parseMode, replyToMessageId);
         }
 
-        public static VideoUpdateHandlerResult Video(long chatId, string fileId, string caption, ParseMode parseMode = ParseMode.Default, int replyToMessageId = 0)
+        public static VideoUpdateHandlerResult Video(long chatId, string fileId, string caption, ParseMode parseMode = ParseMode.None, int replyToMessageId = 0)
         {
             return new (chatId, fileId, caption, parseMode, replyToMessageId);
         }
@@ -50,7 +50,7 @@ namespace CommunityBot.Handlers.Results
             return new (chatId, mediaList, replyToMessageId);
         }
 
-        public static DocumentUpdateHandlerResult Document(long chatId, Stream content, string fileName, string caption, ParseMode parseMode = ParseMode.Default, int replyToMessageId = 0)
+        public static DocumentUpdateHandlerResult Document(long chatId, Stream content, string fileName, string caption, ParseMode parseMode = ParseMode.None, int replyToMessageId = 0)
         {
             return new (chatId, content, fileName, caption, parseMode, replyToMessageId);
         }

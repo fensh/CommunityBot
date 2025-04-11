@@ -1,11 +1,11 @@
-﻿using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace CommunityBot.Handlers.Results
 {
     public abstract class MediaUpdateHandlerResult : UpdateHandlerResultBase
     {
-        public MediaUpdateHandlerResult(long chatId, string fileId, string caption, ParseMode parseMode = ParseMode.Default, int replyToMessageId = 0, IReplyMarkup? replyMarkup = null)
+        public MediaUpdateHandlerResult(long chatId, string fileId, string caption, ParseMode parseMode = ParseMode.None, int replyToMessageId = 0, ReplyMarkup? replyMarkup = null)
             : base(chatId, caption, parseMode, replyToMessageId, replyMarkup)
         {
             FileId = fileId;
@@ -18,7 +18,7 @@ namespace CommunityBot.Handlers.Results
 
     public class PhotoUpdateHandlerResult : MediaUpdateHandlerResult
     {
-        public PhotoUpdateHandlerResult(long chatId, string fileId, string caption, ParseMode parseMode = ParseMode.Default, int replyToMessageId = 0)
+        public PhotoUpdateHandlerResult(long chatId, string fileId, string caption, ParseMode parseMode = ParseMode.None, int replyToMessageId = 0)
             : base(chatId, fileId, caption, parseMode, replyToMessageId)
         {
         }
@@ -26,7 +26,7 @@ namespace CommunityBot.Handlers.Results
     
     public class VideoUpdateHandlerResult : MediaUpdateHandlerResult
     {
-        public VideoUpdateHandlerResult(long chatId, string fileId, string caption, ParseMode parseMode = ParseMode.Default, int replyToMessageId = 0)
+        public VideoUpdateHandlerResult(long chatId, string fileId, string caption, ParseMode parseMode = ParseMode.None, int replyToMessageId = 0)
             : base(chatId, fileId, caption, parseMode, replyToMessageId)
         {
         }

@@ -14,7 +14,7 @@ namespace CommunityBot.Helpers
             });
         }
 
-        public static IReplyMarkup? GetWelcomeButton(WelcomeMessage welcomeMessage)
+        public static ReplyMarkup? GetWelcomeButton(WelcomeMessage welcomeMessage)
         {
             if (welcomeMessage.ButtonLink.IsBlank() || welcomeMessage.ButtonName.IsBlank())
             {
