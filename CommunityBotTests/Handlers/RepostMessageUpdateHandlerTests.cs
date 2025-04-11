@@ -1,18 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 using Xunit;
 using Moq;
-
-using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
-using Telegram.Bot.Types.ReplyMarkups;
-using Telegram.Bot.Types.InputFiles;
 
 using CommunityBot.Contracts;
 using CommunityBot.Handlers;
